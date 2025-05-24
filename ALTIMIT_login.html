@@ -126,13 +126,17 @@
       const user = document.getElementById('username').value;
       const pass = document.getElementById('password').value;
 
-      if (user === "admin" && pass === "1234") {
-        alert("Benvingut, " + user + "!");
+      if (login(user,pass)) {
+       
         // Redirigeix a l'escriptori
         window.location.href = "ALTIMIT_escriptori.html";
       } else {
         alert("Usuari o contrasenya incorrectes.");
       }
+    }
+
+    function login(user,password){
+      return user === "admin" && pass === "1234";
     }
 
     function resetForm() {
