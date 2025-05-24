@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>Aplicacions</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('imatges/fonsdepantalla01.jpg');
+      background-size: cover;
+      font-family: sans-serif;
+    }
+
+    .barra-lateral {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      box-sizing: border-box;
+    }
+
+    .aplicacions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .aplicacio {
+      margin-bottom: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .aplicacio img {
+      width: 64px;
+      height: 64px;
+      display: block;
+      margin: 0 auto 5px;
+    }
+
+    .aplicacio span {
+      font-size: 14px;
+    }
+
+    .menu-inici {
+      position: relative;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .menu-boto {
+      background-color: black;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      left: 0;
+      bottom: 100%;
+      width: 100%;
+      background-color: black;
+      text-align: center;
+    }
+
+    .submenu a {
+      display: block;
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+    }
+
+    .submenu a:hover {
+      background-color: #333;
+    }
+
+    .menu-inici:hover .submenu {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="barra-lateral">
+    <div class="aplicacions">
+      <div class="aplicacio">
+        <img src="imatges/theworld.webp" alt="The World">
+        <span>The World</span>
+      </div>
+      <div class="aplicacio">
+        <img src="imatges/mailer.webp" alt="Mailer">
+        <span>Mailer</span>
+      </div>
+      <div class="aplicacio">
+        <img src="imatges/webnews.webp" alt="Web News">
+        <span>Web News</span>
+      </div>
+      <div class="aplicacio">
+        <img src="imatges/accesory.webp" alt="Accessory">
+        <span>Accessory</span>
+      </div>
+      <div class="aplicacio">
+        <img src="imatges/audio.webp" alt="Audio">
+        <span>Audio</span>
+      </div>
+      <div class="aplicacio">
+        <img src="imatges/data.webp" alt="Data">
+        <span>Data</span>
+      </div>
+    </div>
+
+    <div class="menu-inici">
+      <div class="menu-boto">Inici</div>
+      <div class="submenu">
+        <a href="ALTIMIT_login.html">Tancar sessió</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

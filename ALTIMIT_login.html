@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALTIMIT – The World (Servidor Ç : 210.195.126.48.255)</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #8c9fde, #314ba0);
+      font-family: 'MS Sans Serif', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .win95-window {
+      background-color: #c0c0c0;
+      border: 2px solid #000;
+      box-shadow: 4px 4px #404040;
+      width: 320px;
+    }
+
+    .title-bar {
+      background-color: #000080;
+      color: white;
+      padding: 4px 8px;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .title-bar .close-btn {
+      background: #c0c0c0;
+      border: 2px outset #fff;
+      color: black;
+      width: 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .window-content {
+      padding: 16px;
+    }
+
+    .server-info {
+      font-size: 12px;
+      margin-bottom: 12px;
+      color: #000080;
+    }
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .form-row label {
+      width: 80px;
+      font-size: 13px;
+    }
+
+    .form-row input {
+      flex: 1;
+      padding: 2px;
+      border: 2px inset #fff;
+      background-color: #fff;
+      font-family: 'MS Sans Serif', sans-serif;
+      font-size: 13px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    button {
+      padding: 4px 12px;
+      border: 2px outset #fff;
+      background-color: #c0c0c0;
+      font-family: 'MS Sans Serif', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="win95-window">
+    <div class="title-bar">
+      <span>The World – Servidor Ç : 210.195.126.48.255</span>
+      <div class="close-btn" onclick="window.close()" style="background-color: red; color: white;">×</div>
+    </div>
+    <div class="window-content">
+      <img src="imatges/loginbaner.png" alt="Bàner de login" style="display: block; margin: 0 auto 8px; max-width: 100%; height: auto;">
+      
+      <div class="server-info">
+        ALTIMIT – Servidor català
+      </div>
+      <form onsubmit="login(event)">
+        <div class="form-row">
+          <label for="username">Usuari:</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-row">
+          <label for="password">Contrasenya:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="buttons">
+          <button type="submit">OK</button>
+          <button type="button" onclick="resetForm()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function login(event) {
+      event.preventDefault();
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+
+      if (user === "admin" && pass === "1234") {
+        alert("Benvingut, " + user + "!");
+        // Redirigeix a l'escriptori
+        window.location.href = "ALTIMIT_escriptori.html";
+      } else {
+        alert("Usuari o contrasenya incorrectes.");
+      }
+    }
+
+    function resetForm() {
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+    }
+  </script>
+</body>
+</html>
+
