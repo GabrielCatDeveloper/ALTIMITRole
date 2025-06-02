@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aplicacions flotants</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #111;
+      color: white;
+      font-family: sans-serif;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 200;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #cc9900;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Estil genèric per cada iframe-container */
+    .iframe-container {
+      position: fixed;
+      top: 50%;
+      left: 100%; /* inicialment fora de pantalla per la dreta */
+      transform: translateY(-50%);
+      width: 800px;
+      height: 500px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid #cc9900;
+      overflow: hidden;
+      z-index: 100;
+      pointer-events: auto;
+      transition: left 0.7s ease-in-out;
+    }
+
+    /* Quan està actiu, es centra */
+    .iframe-container.active {
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Quan surt, es mou cap a l'esquerra */
+    .iframe-container.exit-left {
+      left: -100%;
+    }
+
+    .iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .iframe-title {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.85);
+      pointer-events: none;
+      text-shadow: 1px 1px 2px black;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button onclick="showApp('galeria')">Galeria</button>
+    <button onclick="showApp('xarxa')">Xarxa</button>
+    <button onclick="showApp('terminal')">Terminal</button>
+  </header>
+
+  <!-- Finestra de Galeria -->
+  <div class="iframe-container" id="iframe-galeria">
+    <iframe src="https://example.com/galeria"></iframe>
+    <div class="iframe-title">Galeria</div>
+  </div>
+
+  <!-- Finestra de Xarxa -->
+  <div class="iframe-container" id="iframe-xarxa">
+    <iframe src="https://example.com/xarxa"></iframe>
+    <div class="iframe-title">Xarxa</div>
+  </div>
+
+  <!-- Finestra de Terminal -->
+  <div class="iframe-container" id="iframe-terminal">
+    <iframe src="https://example.com/terminal"></iframe>
+    <div class="iframe-title">Terminal</div>
+  </div>
+
+  <script>
+    let currentApp = null;
+
+    function showApp(appName) {
+      const newIframe = document.getElementById(`iframe-${appName}`);
+
+      if (currentApp && currentApp !== appName) {
+        const oldIframe = document.getElementById(`iframe-${currentApp}`);
+        oldIframe.classList.remove("active");
+        oldIframe.classList.add("exit-left");
+
+        setTimeout(() => {
+          oldIframe.classList.remove("exit-left");
+        }, 700);
+      }
+
+      if (currentApp !== appName) {
+        newIframe.classList.add("active");
+        currentApp = appName;
+      }
+    }
+  </script>
+</body>
+</html>

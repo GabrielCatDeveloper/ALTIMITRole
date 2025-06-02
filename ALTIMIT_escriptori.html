@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-  <meta charset="UTF-8">
-  <title>Aplicacions</title>
+  <meta charset="UTF-8" />
+  <title>ALTIMIT</title>
   <style>
     body {
       margin: 0;
@@ -11,121 +11,366 @@
       background-size: cover;
       font-family: sans-serif;
     }
-
+    .franja-superior {
+      position: fixed;
+      top: 90px;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background-color: black;
+      opacity: 0.85;
+      z-index: 25;
+    }
+    .franja-superior2 {
+      position: fixed;
+      top: 0px;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background-color: black;
+      opacity: 0.25;
+      z-index: 20;
+    }
+    .franja-inferior {
+      position: fixed;
+      bottom: 0px;
+      left: 0;
+      width: 100%;
+      height: 35px;
+      background-color: black;
+      opacity: 0.55;
+      z-index: 25;
+    }
+    .franja-inferior2 {
+      position: fixed;
+      left: 0;
+      bottom: 0px;
+      width: 100%;
+      height: 120px;
+      background-color: maroon;
+      opacity: 0.35;
+      z-index: 20;
+    }
     .barra-lateral {
       position: fixed;
       top: 0;
       left: 0;
-      width: 150px;
+      width: 200px;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding-top: 20px;
+      padding: 20px 0;
       box-sizing: border-box;
+      z-index: 40;
     }
-
+    .barra-lateral-part {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 180px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      z-index: 35;
+      pointer-events: none;
+    }
     .aplicacions {
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
+      box-sizing: border-box;
     }
-
     .aplicacio {
-      margin-bottom: 20px;
       text-align: center;
       color: white;
+      cursor: pointer;
+      width: 130px;
     }
-
     .aplicacio img {
       width: 64px;
       height: 64px;
-      display: block;
-      margin: 0 auto 5px;
+      margin: 0 auto;
+      transition: filter 0s ease;
+      filter: brightness(1);
     }
-
+    .aplicacio.seleccionat img {
+      filter: brightness(1.0) sepia(10) hue-rotate(160deg) saturate(5);
+    }
     .aplicacio span {
-      font-size: 14px;
+      font-size: 20px;
     }
-
-    .menu-inici {
-      position: relative;
-      width: 100%;
-      text-align: center;
-      margin-bottom: 20px;
+    .decoracions {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 16px;
+      z-index: 10;
     }
-
-    .menu-boto {
+    .decoracions img {
+      max-height: 200px;
+      height: auto;
+    }
+    .barra-inferior {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      gap: 5px;
+      z-index: 60;
+    }
+    .bloc-inici {
       background-color: black;
       color: white;
-      padding: 10px;
+      width: 100px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 14px;
       cursor: pointer;
+      border: 3px solid white;
+      border-width: 3px 0px 0px 3px;
+      border-radius: 4px;
+      user-select: none;
+      position: relative;
     }
-
+    .bloc-decoratiu {
+      background-color: black;
+      width: 40px;
+      height: 40px;
+      border: 3px solid white;
+      border-width: 3px 0px 0px 3px;
+      border-radius: 4px;
+    }
     .submenu {
       display: none;
       position: absolute;
-      left: 0;
-      bottom: 100%;
-      width: 100%;
+      bottom: 50px;
+      left: 10px;
       background-color: black;
       text-align: center;
+      z-index: 100;
+      border: 2px solid white;
+      border-width: 2px 0px 0px 2px;
+      border-radius: 4px;
+      box-shadow: 0 0 5px #000;
     }
-
     .submenu a {
       display: block;
       color: white;
-      padding: 8px;
+      padding: 8px 15px;
       text-decoration: none;
     }
-
     .submenu a:hover {
       background-color: #333;
     }
-
-    .menu-inici:hover .submenu {
+    .submenu.visible {
       display: block;
     }
+    .nom-aplicacio {
+      position: fixed;
+      top: 30px;
+      left: 25%;
+      transform: translateX(-50%);
+      font-size: 64px;
+      color: black;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px black;
+      pointer-events: none;
+      z-index: 5;
+    }
+      .iframe-aplicacio {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid #cfa348; /* ocre fi */
+      border-radius: 0; /* sense arrodoniments */
+      z-index: 50;
+      background: rgba(0, 0, 0, 0.1); /* negre amb transparència */
+      box-shadow: 0 0 12px black;
+    }
+
   </style>
 </head>
 <body>
+  <div class="franja-superior2"></div>
+  <div class="franja-superior"></div>
+  <div class="franja-inferior2"></div>
+  <div class="franja-inferior"></div>
+
+  <div id="nom-aplicacio" class="nom-aplicacio"></div>
+
   <div class="barra-lateral">
     <div class="aplicacions">
-      <div class="aplicacio">
-        <img src="imatges/theworld.webp" alt="The World">
-        <span>The World</span>
-      </div>
-      <div class="aplicacio">
-        <img src="imatges/mailer.webp" alt="Mailer">
-        <span>Mailer</span>
-      </div>
-      <div class="aplicacio">
-        <img src="imatges/webnews.webp" alt="Web News">
-        <span>Web News</span>
-      </div>
-      <div class="aplicacio">
-        <img src="imatges/accesory.webp" alt="Accessory">
-        <span>Accessory</span>
-      </div>
-      <div class="aplicacio">
-        <img src="imatges/audio.webp" alt="Audio">
-        <span>Audio</span>
-      </div>
-      <div class="aplicacio">
-        <img src="imatges/data.webp" alt="Data">
-        <span>Data</span>
-      </div>
-    </div>
-
-    <div class="menu-inici">
-      <div class="menu-boto">Inici</div>
-      <div class="submenu">
-        <a href="ALTIMIT_login.html">Tancar sessió</a>
-      </div>
+      <div class="aplicacio"><img src="imatges/theworld.webp" alt="The World" /><span></br>THE WORLD</span></div>
+      <div class="aplicacio"><img src="imatges/mailer.webp" alt="Mailer" /><span></br>MAILER</span></div>
+      <div class="aplicacio"><img src="imatges/webnews.webp" alt="Web News" /><span></br>WEB NEWS</span></div>
+      <div class="aplicacio"><img src="imatges/accesory.webp" alt="Accessory" /><span></br>ACCESSORY</span></div>
+      <div class="aplicacio"><img src="imatges/audio.webp" alt="Audio" /><span></br>AUDIO</span></div>
+      <div class="aplicacio"><img src="imatges/data.webp" alt="Data" /><span></br>DATA</span></div>
     </div>
   </div>
+  <div class="barra-lateral-part"></div>
+
+  <div class="barra-inferior">
+    <div class="bloc-inici" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-controls="submenu-inici">
+          <img src="imatges/logo_altimit.png" alt="Altimit Logo" width="20px" height="auto"/>Inici
+      <div class="submenu" id="submenu-inici" role="menu">
+        <a href="index.html" role="menuitem" tabindex="-1">Tancar sessió</a>
+      </div>
+    </div>
+    <div class="bloc-decoratiu"></div>
+    <div class="bloc-decoratiu"></div>
+    <div class="bloc-decoratiu"></div>
+    <div class="bloc-decoratiu"></div>
+    <div class="bloc-decoratiu"></div>
+    <div class="bloc-decoratiu"></div>
+  </div>
+
+  <div class="decoracions">
+    <img src="imatges/altimit.gif" alt="Altimit Logo" />
+    <img src="imatges/animació.gif" alt="Animació" />
+  </div>
+
+  <!-- Iframes per cada aplicació -->
+  <iframe id="iframe-theworld" src="iframes/theworld.html" class="iframe-aplicacio" style="width: 800px; height: 200px;"></iframe>
+  <iframe id="iframe-mailer" src="iframes/mailer.html" class="iframe-aplicacio" style="width: 1000px; height: 550px;"></iframe>
+  <iframe id="iframe-webnews" src="iframes/webnews.html" class="iframe-aplicacio" style="width: 850px; height: 550px;"></iframe>
+  <iframe id="iframe-accessory" src="iframes/accessory.html" class="iframe-aplicacio" style="width: 550px; height: 500px;"></iframe>
+  <iframe id="iframe-audio" src="iframes/audio.html" class="iframe-aplicacio" style="width: 350px; height: 400px;"></iframe>
+  <iframe id="iframe-data" src="iframes/data.html" class="iframe-aplicacio" style="width: 450px; height: 400px;"></iframe>
+
+  <script>
+    const aplicacions = Array.from(document.querySelectorAll('.aplicacio'));
+    let indexSeleccionat = 0;
+    let menuActiu = false;
+
+    function actualitzaSeleccio(nouIndex) {
+      aplicacions.forEach((el, i) => {
+        if (i === nouIndex) {
+          el.classList.add('seleccionat');
+          el.setAttribute('aria-pressed', 'true');
+          document.getElementById('nom-aplicacio').textContent = el.querySelector('span').textContent;
+
+      // Mostrar només el iframe corresponent
+          mostrarIframe(el.querySelector('span').textContent.trim());
+        } else {
+          el.classList.remove('seleccionat');
+          el.setAttribute('aria-pressed', 'false');
+        }
+      });
+      indexSeleccionat = nouIndex;
+    }
+
+    function mostrarIframe(nom) {
+      const idMap = {
+        'THE WORLD': 'iframe-theworld',
+        'MAILER': 'iframe-mailer',
+        'WEB NEWS': 'iframe-webnews',
+        'ACCESSORY': 'iframe-accessory',
+        'AUDIO': 'iframe-audio',
+        'DATA': 'iframe-data'
+      };
+
+      // Amaguem tots els iframes
+      document.querySelectorAll('.iframe-aplicacio').forEach(iframe => {
+        iframe.style.display = 'none';
+      });
+
+      // Mostrem el que toca
+      const idIframe = idMap[nom];
+      if (idIframe) {
+        const iframe = document.getElementById(idIframe);
+        if (iframe) iframe.style.display = 'block';
+      }
+    }
+
+
+    actualitzaSeleccio(indexSeleccionat);
+
+    document.addEventListener('wheel', (e) => {
+      if (!menuActiu) {
+        e.preventDefault();
+        let nouIndex = (indexSeleccionat + (e.deltaY > 0 ? 1 : -1) + aplicacions.length) % aplicacions.length;
+        actualitzaSeleccio(nouIndex);
+      }
+    }, { passive: false });
+
+    document.addEventListener('keydown', (e) => {
+      if (menuActiu) {
+        const submenu = document.getElementById('submenu-inici');
+        const items = Array.from(submenu.querySelectorAll('a'));
+        let focusIndex = items.findIndex(item => item === document.activeElement);
+        if (['ArrowDown', 'ArrowRight'].includes(e.key)) {
+          e.preventDefault();
+          items[(focusIndex + 1) % items.length].focus();
+        } else if (['ArrowUp', 'ArrowLeft'].includes(e.key)) {
+          e.preventDefault();
+          items[(focusIndex - 1 + items.length) % items.length].focus();
+        } else if (e.key === 'Tab') {
+          e.preventDefault();
+          tancarMenu();
+        }
+      } else {
+        if (['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'].includes(e.key)) {
+          e.preventDefault();
+          let nouIndex = indexSeleccionat + (['ArrowDown', 'ArrowRight'].includes(e.key) ? 1 : -1);
+          nouIndex = (nouIndex + aplicacions.length) % aplicacions.length;
+          actualitzaSeleccio(nouIndex);
+        } else if (e.key === 'Tab') {
+          e.preventDefault();
+          obrirMenu();
+        }
+      }
+    });
+
+    const blocInici = document.querySelector('.bloc-inici');
+    const submenuInici = document.getElementById('submenu-inici');
+
+    function obrirMenu() {
+      menuActiu = true;
+      submenuInici.classList.add('visible');
+      blocInici.setAttribute('aria-expanded', 'true');
+      submenuInici.querySelector('a')?.focus();
+    }
+
+    function tancarMenu() {
+      menuActiu = false;
+      submenuInici.classList.remove('visible');
+      blocInici.setAttribute('aria-expanded', 'false');
+    }
+
+    blocInici.addEventListener('click', () => {
+      if (menuActiu) {
+        tancarMenu();
+      } else {
+        obrirMenu();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (menuActiu && !blocInici.contains(e.target)) {
+        tancarMenu();
+      }
+    });
+    // Afegim el clic a les icones perquè es seleccionin
+    aplicacions.forEach((el, i) => {
+      el.addEventListener('click', () => {
+        if (!menuActiu) {
+          actualitzaSeleccio(i);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
